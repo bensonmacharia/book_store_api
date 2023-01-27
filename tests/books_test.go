@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/bensonmacharia/book_store_api/model"
+	"book_store_api/model"
 	"github.com/stretchr/testify/assert"
 )
 

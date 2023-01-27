@@ -4,7 +4,7 @@ import (
 	"html"
 	"strings"
 
-	"github.com/bensonmacharia/book_store_api/database"
+	"book_store_api/database"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )

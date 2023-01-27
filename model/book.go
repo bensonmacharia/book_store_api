@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/bensonmacharia/book_store_api/database"
+	"book_store_api/database"
 	"gorm.io/gorm"
 )
 

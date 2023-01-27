@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookstoreapi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: bookstoreapi
+  template:
+    metadata:
+      labels:
+        app: bookstoreapi
+    spec:
+      containers:
+      - name: bookstoreapi
+        image: bensonmacharia/book-store-api
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 8080

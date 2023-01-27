@@ -9,10 +9,10 @@ import (
 	"os"
 	"testing"
 
-	"github.com/bensonmacharia/book_store_api/controller"
-	"github.com/bensonmacharia/book_store_api/database"
-	"github.com/bensonmacharia/book_store_api/model"
-	"github.com/bensonmacharia/book_store_api/util"
+	"book_store_api/controller"
+	"book_store_api/database"
+	"book_store_api/model"
+	"book_store_api/util"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )

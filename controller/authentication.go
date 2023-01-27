@@ -1,11 +1,14 @@
 package controller
 
 import (
+	"errors"
+	"fmt"
 	"net/http"
 
-	"github.com/bensonmacharia/book_store_api/model"
-	"github.com/bensonmacharia/book_store_api/util"
+	"book_store_api/model"
+	"book_store_api/util"
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 )
 
 func Register(context *gin.Context) {
@@ -26,17 +29,33 @@ func Register(context *gin.Context) {
 
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		var url = context.Request.Host + context.Request.URL.String()
+		message := fmt.Sprintf("Registration error for: %s %s", user.Username, err.Error())
+		util.Logger(context.ClientIP(), url, 401, message)
 		return
 	}
 
 	context.JSON(http.StatusCreated, gin.H{"user": savedUser})
+
+	var url = context.Request.Host + context.Request.URL.String()
+	message := fmt.Sprintf("User registered: %s", user.Username)
+	util.Logger(context.ClientIP(), url, 201, message)
+
 }
 
 func Login(context *gin.Context) {
 	var input model.Login
 
 	if err := context.ShouldBindJSON(&input); err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		var errorMessage string
+		var validationErrors validator.ValidationErrors
+		if errors.As(err, &validationErrors) {
+			validationError := validationErrors[0]
+			if validationError.Tag() == "required" {
+				errorMessage = fmt.Sprintf("%s not provided", validationError.Field())
+			}
+		}
+		context.JSON(http.StatusBadRequest, gin.H{"error": errorMessage})
 		return
 	}
 
@@ -51,6 +70,9 @@ func Login(context *gin.Context) {
 
 	if err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		var url = context.Request.Host + context.Request.URL.String()
+		message := fmt.Sprintf("Wrong password entered for: %s %s", user.Username, err.Error())
+		util.Logger(context.ClientIP(), url, 401, message)
 		return
 	}
 
@@ -61,4 +83,9 @@ func Login(context *gin.Context) {
 	}
 
 	context.JSON(http.StatusOK, gin.H{"jwt": jwt})
+
+	var url = context.Request.Host + context.Request.URL.String()
+	message := fmt.Sprintf("User logged in: %s", user.Username)
+	util.Logger(context.ClientIP(), url, 200, message)
+
 }

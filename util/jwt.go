@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/bensonmacharia/book_store_api/model"
+	"book_store_api/model"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
 )
