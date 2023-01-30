@@ -10,7 +10,7 @@ spec:
       app: postgresdb
       tier: postgres
   serviceName: postgresdb
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -30,7 +30,13 @@ spec:
         volumeMounts:
         - name: postgres-persistent-storage
           mountPath: /var/lib/postgresql/data
-  volumes:
-    - name: postgres-persistent-storage
-      persistentVolumeClaim:
-        claimName: efs-claim
+  volumeClaimTemplates:
+      - metadata:
+          name: postgres-persistent-storage
+          annotations:
+            volume.beta.kubernetes.io/storage-class: "aws-efs"
+        spec:
+          accessModes: [ "ReadWriteOnce" ]
+          resources:
+            requests:
+              storage: 1Gi
