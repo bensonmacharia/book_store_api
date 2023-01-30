@@ -13,6 +13,7 @@ import (
 	"book_store_api/database"
 	"book_store_api/model"
 	"book_store_api/util"
+
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
@@ -42,12 +43,12 @@ func router() *gin.Engine {
 }
 
 func setup() {
-	err := godotenv.Load("../.env.local")
+	err := godotenv.Load("../.env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
 
-	database.Connect()
+	database.ConnectTest()
 	database.Database.AutoMigrate(&model.User{})
 	database.Database.AutoMigrate(&model.Book{})
 }

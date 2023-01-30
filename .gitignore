@@ -1,2 +1,5 @@
 *.env
 *.DS_Store
+pg_data
+pg_data_test
+*.log

@@ -4,7 +4,7 @@ LABEL maintainer="Benson Macharia"
 
 # Install git.
 # Git is required for fetching the dependencies.
-RUN apk update && apk add --no-cache git && apk add --no-cach bash && apk add build-base
+# RUN apk update && apk add --no-cache git && apk add --no-cach bash && apk add build-base
 
 # Setup folders
 RUN mkdir /app

@@ -1,0 +1,69 @@
+version: '3.9'
+services:
+  app:
+    container_name: go_bookstore_api
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - DATABASE_HOST=${DB_HOST}
+      - DATABASE_PORT=${DB_PORT}
+      - TEST_POSTGRES_USER=${TEST_DB_USER}
+      - TEST_POSTGRES_PASSWORD=${TEST_DB_PASSWORD}
+      - TEST_POSTGRES_DB=${TEST_DB_NAME}
+      - TEST_DATABASE_HOST=${TEST_DB_HOST}
+      - TEST_DATABASE_PORT=${TEST_DB_PORT}
+    tty: true
+    env_file:
+      - .env
+    build: .
+    ports:
+      - 8000:8080
+    restart: on-failure
+    volumes:
+      - .:/app
+    depends_on:
+      - postgresdb
+    networks:
+      - learning
+
+  postgresdb:
+    image: postgres:latest
+    container_name: postgres_live
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - DATABASE_HOST=${DB_HOST}
+    ports:
+      - '1234:5434'
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
+      - ./db_schema/init.sql:/docker-entrypoint-initdb.d/1-schema.sql
+    networks:
+      - learning
+
+  postgresdbtest:
+    image: postgres:latest
+    container_name: postgres_test
+    environment:
+      - POSTGRES_USER=${TEST_DB_USER}
+      - POSTGRES_PASSWORD=${TEST_DB_PASSWORD}
+      - POSTGRES_DB=${TEST_DB_NAME}
+      - DATABASE_HOST=${TEST_DB_HOST}
+    ports:
+      - '4568:5434'
+    volumes:
+      - ./pg_data_test:/var/lib/postgresql/data
+      - ./db_schema/init-test.sql:/docker-entrypoint-initdb.d/1-schema.sql
+    networks:
+      - learning
+
+volumes:
+  pg_data:
+  pg_data_test:
+
+# Networks to be created to facilitate communication between containers
+networks:
+  learning:
+    driver: bridge

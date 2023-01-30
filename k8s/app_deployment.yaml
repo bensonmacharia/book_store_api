@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: book_store_api
+  labels:
+    app: book_store_api
+spec:
+  replicas: 1  
+  selector:
+    matchLabels:
+      app: book_store_api
+  template:
+    metadata:
+      labels:
+        app: book_store_api
+    spec:
+      containers:
+      - name: book_store_api
+        image: bensonmacharia/book-store-api:latest
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            cpu: "500m"
+        ports:
+        - name: http
+          containerPort: 8080
+        envFrom:
+          - secretRef:
+              name: app-secret
