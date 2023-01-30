@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: book_store_api
+  name: book-store-api
   labels:
-    app: book_store_api
+    app: book-store-api
 spec:
   replicas: 1  
   selector:
     matchLabels:
-      app: book_store_api
+      app: book-store-api
   template:
     metadata:
       labels:
-        app: book_store_api
+        app: book-store-api
     spec:
       containers:
-      - name: book_store_api
+      - name: book-store-api
         image: bensonmacharia/book-store-api:latest
         imagePullPolicy: IfNotPresent
         resources:
