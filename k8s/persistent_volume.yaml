@@ -12,10 +12,4 @@ spec:
   storageClassName: efs-sc
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: fs-0125b4ad7517cd792
-  # mountOptions:
-  #   - hard
-  #   - nfsvers=4.1
-  # nfs:
-  #   path: /tmp
-  #   server: 172.17.0.2
+    volumeHandle: fs-04e3c03eba40e7a80

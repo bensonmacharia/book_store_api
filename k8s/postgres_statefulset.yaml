@@ -34,13 +34,3 @@ spec:
       - name: postgres-persistent-storage
         persistentVolumeClaim:
         claimName: efs-claim
-  volumeClaimTemplates:
-      - metadata:
-          name: postgres-persistent-storage
-          annotations:
-            volume.beta.kubernetes.io/storage-class: "aws-efs"
-        spec:
-          accessModes: [ "ReadWriteOnce" ]
-          resources:
-            requests:
-              storage: 1Gi
