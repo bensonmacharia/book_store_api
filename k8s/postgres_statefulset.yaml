@@ -1,36 +1,36 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: StatefulSet                                # Type of the kubernetes resource
 metadata:
-  name: postgresdb
-  labels: 
+  name: postgresdb                       # Name of the statefulset
+  labels:                                        # Labels applied to this statefulset 
     app: postgresdb
 spec:
+  serviceName: postgresdb
   selector:
-    matchLabels:
+    matchLabels:                                  # This statefulset applies to the Pods matching the specified labels
       app: postgresdb
       tier: postgres
-  serviceName: postgresdb
   replicas: 1
-  template:
+  template:                                       # Template for the Pods in this statefulset
     metadata:
-      labels:
+      labels:                                     # Labels to be applied to the Pods in this statefulset
         app: postgresdb
         tier: postgres
-    spec:
+    spec:                                         # The spec for the containers that will be run inside the Pods in this statefulset
       containers:
-      - name: postgres
-        image: postgres:latest
-        imagePullPolicy: "IfNotPresent"
-        envFrom:
-        - secretRef:
-            name: postgres-secret
-        ports:
-        - containerPort: 5432
+        - image: postgres:latest                  # The container image
           name: postgres
-        volumeMounts:
+          imagePullPolicy: "IfNotPresent"
+          envFrom:                                # Get the environmental variables from a secret file whose name is "postgres-secret" 
+            - secretRef:
+                name: postgres-secret
+          ports:
+            - containerPort: 5432                   # The port that the container exposes 
+              name: postgres
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-persistent-storage     # This name should match the name specified in `volumes.name`
+      volumes:                                      # A PersistentVolume is mounted as a volume to the Pod 
         - name: postgres-persistent-storage
-          mountPath: /var/lib/postgresql/data
-  volumes:
-      - name: postgres-persistent-storage
-        persistentVolumeClaim:
-        claimName: efs-claim
+          persistentVolumeClaim:
+            claimName: efs-claim
