@@ -1,36 +1,36 @@
 apiVersion: apps/v1
-kind: StatefulSet                                # Type of the kubernetes resource
+kind: StatefulSet
 metadata:
-  name: postgresdb                       # Name of the statefulset
-  labels:                                        # Labels applied to this statefulset 
+  name: postgresdb
+  labels:
     app: postgresdb
 spec:
   serviceName: postgresdb
   selector:
-    matchLabels:                                  # This statefulset applies to the Pods matching the specified labels
+    matchLabels:
       app: postgresdb
       tier: postgres
   replicas: 1
-  template:                                       # Template for the Pods in this statefulset
+  template:
     metadata:
-      labels:                                     # Labels to be applied to the Pods in this statefulset
+      labels:
         app: postgresdb
         tier: postgres
-    spec:                                         # The spec for the containers that will be run inside the Pods in this statefulset
+    spec:
       containers:
-        - image: postgres:latest                  # The container image
+        - image: postgres:latest
           name: postgres
           imagePullPolicy: "IfNotPresent"
-          envFrom:                                # Get the environmental variables from a secret file whose name is "postgres-secret" 
+          envFrom:
             - secretRef:
                 name: postgres-secret
           ports:
-            - containerPort: 5432                   # The port that the container exposes 
+            - containerPort: 5432 
               name: postgres
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: postgres-persistent-storage     # This name should match the name specified in `volumes.name`
-      volumes:                                      # A PersistentVolume is mounted as a volume to the Pod 
+              name: postgres-persistent-storage
+      volumes:
         - name: postgres-persistent-storage
           persistentVolumeClaim:
             claimName: efs-claim
