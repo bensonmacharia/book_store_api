@@ -1,5 +1,5 @@
 # Start from golang base image
-FROM golang:alpine as builder
+FROM golang:1.19-alpine as builder
 
 # Add Maintainer info
 LABEL maintainer="Benson Macharia"
