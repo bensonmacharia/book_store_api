@@ -23,13 +23,13 @@ services:
     volumes:
       - .:/app
     depends_on:
-      - postgresdb
+      - postgres-database-live
     networks:
       - learning
 
-  postgresdb:
+  postgres-database-live:
     image: postgres:latest
-    container_name: postgres_live
+    container_name: postgres-db-live
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
@@ -43,9 +43,9 @@ services:
     networks:
       - learning
 
-  postgresdbtest:
+  postgres-database-test:
     image: postgres:latest
-    container_name: postgres_test
+    container_name: postgres-db-test
     environment:
       - POSTGRES_USER=${TEST_DB_USER}
       - POSTGRES_PASSWORD=${TEST_DB_PASSWORD}

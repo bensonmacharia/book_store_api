@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: postgresdb
+  name: postgres-database-live
   labels:
-    app: postgresdb
+    app: postgres-database-live
 spec:
-  serviceName: postgresdb
+  serviceName: postgres-database-live
   selector:
     matchLabels:
-      app: postgresdb
+      app: postgres-database-live
       tier: postgres
   replicas: 1
   template:
     metadata:
       labels:
-        app: postgresdb
+        app: postgres-database-live
         tier: postgres
     spec:
       containers:
