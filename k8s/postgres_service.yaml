@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres-service
+  name: postgres-database-live
   labels:
-    app: postgres-service
+    app: postgres-database-live
 spec:
   selector:
-    app: postgres-service
+    app: postgres-database-live
     tier: postgres
   ports:
   - name: db
