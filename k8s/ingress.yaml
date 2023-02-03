@@ -1,7 +1,6 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  namespace: book-store
   name: book-store-ingress
   labels:
     name: book-store-ingress
