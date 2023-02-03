@@ -18,4 +18,4 @@ spec:
           service:
             name: book-store-api
             port: 
-              number: 8000
+              number: 8080
