@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
+  namespace: book-store
   name: efs-pv
 spec:
   capacity:
@@ -12,4 +13,4 @@ spec:
   storageClassName: efs-sc
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: fs-0247e1d2559a58ebd
+    volumeHandle: fs-0ae66138206dfcab4
