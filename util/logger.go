@@ -1,7 +1,6 @@
 package util
 
 import (
-	"log"
 	"os"
 
 	"github.com/sirupsen/logrus"
@@ -14,12 +13,14 @@ func init() {
 	rlog.SetLevel(logrus.InfoLevel)
 	rlog.SetFormatter(&logrus.JSONFormatter{})
 	rlog.SetOutput(os.Stdout)
-	file, err := os.OpenFile("logrus.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-	if err == nil {
-		rlog.Out = file
-	} else {
-		log.Fatal("Failed to log to file, using default stderr")
-	}
+	//Log to a file
+	// file, err := os.OpenFile("logrus.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	// if err == nil {
+	// 	rlog.Out = file
+	// } else {
+	// 	log.Fatal("Failed to log to file, using default stderr")
+	// }
+	rlog.Out = os.Stdout
 }
 
 func Logger(source string, url string, status int, message string) {
