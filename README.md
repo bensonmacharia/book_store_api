@@ -23,4 +23,4 @@ This repository illustrates a simple `Go` microservice that allows a user to reg
 ![AWS Deployment](https://miro.medium.com/v2/resize:fit:800/format:webp/1*CC1RYKj7nXI6WwETVpXMjw.png)
 > Follow this guide to deploy this application on AWS - https://lnkd.in/d3qTv74h
 > 
-> The guide will illustrate how to deploy the application on `AWS EKS`, persist the database in an `AWS EFS` and ship logs to `AWS CloudWatc`h with the aid of the `Fluent Bit` daemon.
+> The guide will illustrate how to deploy the application on `AWS EKS`, persist the database in an `AWS EFS` and ship logs to `AWS CloudWatch` with the aid of the `Fluent Bit` daemon.
